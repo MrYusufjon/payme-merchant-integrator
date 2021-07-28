@@ -110,3 +110,5 @@ fastify.post(
 ```
 
 And test your endpoint with <a href="https://test.paycom.uz" target="_blank">PaymeTester</a>
+
+Official documentation <a href="https://developer.help.paycom.uz/ru/metody-merchant-api" target="_blank">Payme Merchant</a>
