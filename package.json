@@ -1,0 +1,34 @@
+{
+  "name": "payme-merchant-integrator",
+  "version": "1.0.23",
+  "description": "Integration with payme",
+  "main": "dist/app.js",
+  "types": "typings/app.d.ts",
+  "scripts": {
+    "build": "node_modules/.bin/tsc"
+  },
+  "keywords": [
+    "payme",
+    "integration",
+    "with-mongoose"
+  ],
+  "files": [
+    "dist",
+    "typings",
+    "docs"
+  ],
+  "homepage": "https://github.com/yusufjonnazarov/payme-merchant-integrator#readme",
+  "repository": {
+    "url": "https://github.com/yusufjonnazarov/payme-merchant-integrator"
+  },
+  "author": "yusufjon_nazarov",
+  "license": "ISC",
+  "dependencies": {
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "mongoose": "^5.13.3"
+  },
+  "devDependencies": {
+    "tslib": "^2.3.0"
+  }
+}
