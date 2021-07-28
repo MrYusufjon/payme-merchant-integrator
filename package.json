@@ -1,6 +1,6 @@
 {
   "name": "payme-merchant-integrator",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Integration with payme",
   "main": "dist/app.js",
   "types": "typings/app.d.ts",
