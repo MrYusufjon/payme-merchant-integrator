@@ -26,6 +26,13 @@ export class PaymeIntegrator {
     TransactionModel: Model<ITransaction>;
     CounterModel: Model<ICounter>;
     constructor(private integratorOptions: ContructorDetails) {
+        if (
+            this.integratorOptions.type == PaymeIntegratorType.ONE_TIME &&
+            !this.integratorOptions.getPayingCost
+        ) {
+            console.log('getPayingCost is required for one-time type')
+            throw { failed: true }
+        }
         this.initialize()
     }
     private async initialize() {
