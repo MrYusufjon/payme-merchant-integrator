@@ -56,7 +56,7 @@ export const getTransactionModel = (collection = 'transactions', account_index =
     const TransactionModel = model<ITransaction>('Transaction', schema);
 
     if (!account_index) {
-        TransactionModel.collection.dropIndex('account_index', (error) => { console.log(error) });
+        TransactionModel.collection.dropIndex('account_index', (error) => { if (error) { console.log(error) } });
     }
 
     return TransactionModel;

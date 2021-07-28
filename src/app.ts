@@ -30,7 +30,6 @@ export class PaymeIntegrator {
             this.integratorOptions.type == PaymeIntegratorType.ONE_TIME &&
             !this.integratorOptions.getPayingCost
         ) {
-            console.log('getPayingCost is required for one-time type')
             throw Error('getPayingCost is required')
         }
         this.initialize()
