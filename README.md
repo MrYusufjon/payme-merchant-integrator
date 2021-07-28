@@ -3,7 +3,7 @@
 # Payme merchant api integration with mongodb database based application
 
 ## Author
-- [Yusufjon Nazarov](https://github.com/yusufjonnazarov){:target="_blank"}
+- [Yusufjon Nazarov](https://github.com/yusufjonnazarov)
 
 ## Install
 ```
@@ -109,4 +109,4 @@ fastify.post(
 );
 ```
 
-And test your endpoint with [PaymeTester](https://test.paycom.uz/){:target="_blank"}
+And test your endpoint with <a href="https://test.paycom.uz" target="_blank">PaymeTester</a>
