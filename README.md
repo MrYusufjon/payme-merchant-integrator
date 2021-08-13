@@ -11,7 +11,7 @@ npm install payme-merchant-integrator
 ```
 
 ## Usage
-### Import `PaymeInterrator` class
+### Import `PaymeIntegrator` class
 
 ```
 import { PaymeIntegrator } from 'payme-merchant-integrator';
