@@ -206,7 +206,7 @@ export class MainController {
     private static async CheckTransaction(data) {
         const params = await validateIt(data, PaymeParamsDto, [PaymeMethods.CheckTransaction])
         const tra = await this.TransactionModel.findOne({ id: params.id });
-        if (!tra && tra.state != 1) {
+        if (!tra) {
             throw PaymeErrors.TransactionNotFound()
         }
         return {
