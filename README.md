@@ -27,6 +27,8 @@ const paymeIntegrator = new PaymeIntegrator({
     isAccountExist,
     markAsPaid,
     getPayingCost, // optional for 'cumulative' type
+    canCancel, // method to check cancellation
+    markAsCancel, // method to mark as cancel
 })
 ```
 
@@ -61,6 +63,20 @@ const markAsPaid = async (account, amount) => {
 }
 ```
 
+To check cancel after payment
+```
+const canCancel = async (account) => {
+    return false; // for no cancellation;
+    // or check and return true or false 
+}
+```
+
+To mark as cancel after cancellation
+```
+const markAsCancel = async (account) => {
+    // write function to update balance or cancel paid transaction 
+}
+```
 
 ### And add methods below for `one-time` fee
 then `isAccountExist` method should be
@@ -89,7 +105,6 @@ const markAsPaid = async (account, amount) => {
     );
 }
 ```
-
 
 ### Then use from route and middleware
 Fastify example

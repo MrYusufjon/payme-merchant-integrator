@@ -1,7 +1,7 @@
 import { Model } from "mongoose";
 import { ContructorDetails, PaymeIntegratorType } from "../app";
 import { ICounter } from "../db/models/counter";
-import { getTransactionModel, ITransaction } from "../db/models/transaction";
+import { ITransaction } from "../db/models/transaction";
 import { PaymeErrors } from "../errors";
 import { PaymeBodyDto, paymeGroups, PaymeMethods, PaymeParamsDto } from "../validators/dtos/payme.dto";
 import { validateIt } from "../validators/validate";
@@ -67,9 +67,12 @@ export class MainController {
     private static async CreateTransaction(data) {
         const params = await validateIt(data, PaymeParamsDto, [PaymeMethods.CreateTransaction]);
         params.amount = this.validatePaymeAmount(params.amount);
-        const cost = await this.params.getPayingCost(params.account);
-        if (cost != params.amount) {
-            throw PaymeErrors.InvalidAmount()
+
+        if (this.params.type == PaymeIntegratorType.ONE_TIME) {
+            const cost = await this.params.getPayingCost(params.account);
+            if (cost != params.amount) {
+                throw PaymeErrors.InvalidAmount()
+            }
         }
 
         let tra = await this.TransactionModel.findOne({ id: params.id });
@@ -171,6 +174,10 @@ export class MainController {
         if (!tra) {
             throw PaymeErrors.TransactionNotFound()
         }
+        const can_cancel = await this.params.canCancel(tra.account)
+        if (!can_cancel) {
+            throw PaymeErrors.InvalidRequest()
+        }
         const cancel_params: any = {}
         if (!tra.cancel_time) {
             const cancel_time = new Date().getTime()
@@ -186,6 +193,8 @@ export class MainController {
             tra.state *= (-1);
         }
         await this.TransactionModel.updateOne({ _id: tra._id }, { $set: cancel_params })
+
+        await this.params.markAsCancel(tra.account);
 
         return {
             transaction: tra.transaction,

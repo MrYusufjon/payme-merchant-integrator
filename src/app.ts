@@ -18,6 +18,8 @@ export type ContructorDetails = {
     password: string;
     isAccountExist(account: any): Promise<boolean>;
     getPayingCost?(account: any): Promise<number>;
+    canCancel(account: any): Promise<boolean>;
+    markAsCancel(account: any): void;
     markAsPaid(account: any, amount: number): void;
 }
 
@@ -45,15 +47,16 @@ export class PaymeIntegrator {
         }
     }
 
-    public async authenticate(request, reply) {
+    public async authenticate(request, reply, done = () => { }) {
         try {
             await paymeAuthentication(request, this.integratorOptions.password)
+            done()
         }
         catch (error) {
             if (error instanceof PaymeErrors) {
                 return reply.send(error)
             }
-            reply.send(PaymeErrors.InvalidRequest(error.message))
+            return reply.send(PaymeErrors.InvalidRequest(error.message))
         }
     }
 
