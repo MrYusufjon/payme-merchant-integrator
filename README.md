@@ -7,7 +7,7 @@
 
 ## Install
 ```
-npm install tslib // also to work in jabascript
+npm install tslib // also to work in javascript
 npm install payme-merchant-integrator
 ```
 
