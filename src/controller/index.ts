@@ -54,7 +54,7 @@ export class MainController {
 
     private static async CheckPerformTransaction(data) {
         const params = await validateIt(data, PaymeParamsDto, [PaymeMethods.CheckPerformTransaction]);
-        this.validatePaymeAmount(params.amount);
+        params.amount = this.validatePaymeAmount(params.amount);
         const result = await this.params.isAccountExist(params.account);
         if (!result) {
             throw PaymeErrors.InvalidRequest('Account not found')
