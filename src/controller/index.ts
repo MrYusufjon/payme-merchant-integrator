@@ -182,7 +182,7 @@ export class MainController {
             throw PaymeErrors.TransactionNotFound()
         }
         const can_cancel = await this.params.canCancel(tra.account)
-        if (!can_cancel) {
+        if (!can_cancel && tra.state == 2) {
             throw PaymeErrors.InvalidRequest()
         }
         const cancel_params: any = {}
