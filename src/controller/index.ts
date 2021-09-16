@@ -59,6 +59,13 @@ export class MainController {
         if (!result) {
             throw PaymeErrors.InvalidRequest('Account not found')
         }
+
+        if (this.params.type == PaymeIntegratorType.ONE_TIME) {
+            const cost = await this.params.getPayingCost(params.account);
+            if (cost != params.amount) {
+                throw PaymeErrors.InvalidAmount()
+            }
+        }
         return {
             allow: true
         }
