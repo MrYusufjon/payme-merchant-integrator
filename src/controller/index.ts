@@ -183,7 +183,7 @@ export class MainController {
         }
         const can_cancel = await this.params.canCancel(tra.account)
         if (!can_cancel && tra.state == 2) {
-            throw PaymeErrors.InvalidRequest()
+            throw PaymeErrors.OrderIsCompleted()
         }
         const cancel_params: any = {}
         if (!tra.cancel_time) {
