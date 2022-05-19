@@ -102,7 +102,18 @@ export class MainController {
                 if (exist.state > 0) {
                     throw PaymeErrors.InvalidRequest('Transaction pending')
                 }
-                await this.TransactionModel.updateOne({_id: exist._id},{$set: {state: 1}})
+                await this.TransactionModel.updateOne(
+                    {
+                        _id: exist._id
+                    },
+                    {
+                        $set: {
+                            ...params,
+                            create_time: data.time,
+                            state: 1,
+                        }
+                    }
+                )
 
                 tra = await this.TransactionModel.findById(exist._id);
 
