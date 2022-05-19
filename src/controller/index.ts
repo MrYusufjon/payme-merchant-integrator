@@ -97,9 +97,20 @@ export class MainController {
         }
 
         if (this.params.type == PaymeIntegratorType.ONE_TIME) {
-            const is_exist = await this.TransactionModel.findOne({account: params.account});
-            if (is_exist) {
-                throw PaymeErrors.InvalidRequest('Transaction not found')
+            const exist = await this.TransactionModel.findOne({account: params.account});
+            if (exist) {
+                if (exist.state > 0) {
+                    throw PaymeErrors.InvalidRequest('Transaction pending')
+                }
+                await this.TransactionModel.updateOne({_id: exist._id},{$set: {state: 1}})
+
+                tra = await this.TransactionModel.findById(exist._id);
+
+                return {
+                    create_time: tra.create_time,
+                    transaction: tra.transaction,
+                    state: tra.state
+                }
             }
         }
         try {
